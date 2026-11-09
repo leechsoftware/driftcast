@@ -3,7 +3,11 @@ description: Free, open-source Mac app that plays nearly any video on Chromecast
 url: https://leechsoftware.github.io
 baseurl: /driftcast
 logo: /images/icon-360.png
-image: /images/social.png
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /images/social.png
 theme: jekyll-theme-cayman
 show_downloads: false
 lang: en
