@@ -104,6 +104,16 @@ Driftcast.
     OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 
+## Films shown in the screenshots and demo video
+
+These appear only in the project's website and README images, not in the app:
+
+- *Sintel*, © copyright Blender Foundation, <https://durian.blender.org>, licensed under the Creative Commons Attribution 3.0 licence.
+- *Tears of Steel*, © copyright Blender Foundation, <https://mango.blender.org>, licensed under the Creative Commons Attribution 3.0 licence.
+- *Elephants Dream*, © copyright 2006 Blender Foundation and Netherlands Media Art Institute, <https://orange.blender.org>, licensed under the Creative Commons Attribution 2.5 licence.
+
+The plot text visible in the screenshots is from Wikipedia, licensed under CC BY-SA. Frames were scaled and captured inside the app. None of these parties endorses Driftcast.
+
 ## Thanks
 
 No code was taken from these projects, but Driftcast's design learned from them:

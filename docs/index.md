@@ -15,6 +15,8 @@ Driftcast is a free, open-source Mac app from Leech Software. It is the free alt
 
 macOS 13 Ventura or later, Apple silicon and Intel. Free, under the GNU GPL v3. No account, no trial, no ads, no tracking.
 
+<video controls preload="metadata" poster="images/driftcast-library.png" width="100%" src="media/driftcast-demo.mp4">Your browser can't play this video. <a href="media/driftcast-demo.mp4">Download it</a>.</video>
+
 ## Why Driftcast
 
 - **Plays nearly anything:** MKV, MP4, MOV, AVI, WMV, WebM, TS, M2TS, VOB, MPEG, FLV, DivX, RMVB, MXF and more. H.264, HEVC, AV1, VP9, VP8, MPEG-2, VC-1, ProRes, HDR10, HLG and Dolby Vision. Dolby Atmos, E-AC-3, AC-3, DTS-HD, TrueHD, FLAC, ALAC, AAC and Opus.
@@ -27,6 +29,16 @@ macOS 13 Ventura or later, Apple silicon and Intel. Free, under the GNU GPL v3. 
 - **Film and show details:** poster, plot, cast, director, genres, age rating and IMDb, Rotten Tomatoes and Metacritic scores, with no account.
 - **A title card** with the poster before the film starts, playlists, resume, watched marks, preview frames on the timeline, media keys, and every control in a menu.
 - **Updates itself,** checking that each new version is signed by Leech Software before it is installed.
+
+## Screenshots
+
+![The Driftcast library with a details panel showing the film's poster and plot](images/driftcast-library.png)
+
+![The title card before the film starts](images/driftcast-title-card.png)
+
+![While casting, the Mac window shrinks and dims](images/driftcast-casting.png)
+
+<small>Shown with free films from the Blender Foundation: Sintel and Tears of Steel (CC BY 3.0), Elephants Dream (CC BY 2.5).</small>
 
 ## Get it
 

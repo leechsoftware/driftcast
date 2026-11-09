@@ -45,6 +45,11 @@
 
 ---
 
+<p align="center">
+  <a href="https://leechsoftware.github.io/driftcast/media/driftcast-demo.mp4"><img src="docs/images/driftcast-demo.gif" width="800" alt="Driftcast playing a film on a Mac and opening its list of devices"></a><br>
+  <sub><a href="https://leechsoftware.github.io/driftcast/media/driftcast-demo.mp4">Watch the full demo video</a></sub>
+</p>
+
 ## WHY?
 
 Playing a video from your Mac on the TV shouldn't cost money, need an account, or turn into an evening of fiddling. Yet the apps people end up with all want something: **Airflow** and **Beamer** are paid apps with time-limited trials, **Elmedia Player** keeps casting behind its PRO upgrade, **JustStream** comes with a Setapp subscription, **Infuse** needs Infuse Pro before it will cast from a Mac, and **Plex** wants a media server installed and a library built before you can watch a single file. The free routes aren't much kinder: **VLC**'s Chromecast output is famously hit and miss, mirroring your screen or casting a **Chrome tab** re-encodes your whole desktop at whatever quality the Wi-Fi allows, and converting the file first with **HandBrake** means waiting for the conversion before you can press play.
@@ -122,6 +127,21 @@ No trial, no ads, no account and no tracking. Open source under the GPL, with FF
 - **A window that gets out of the way:** while casting, the video window shrinks to half size, dims the poster and shows who you're connected to, with play, pause and the timeline.
 - **Updates itself:** Check for Updates downloads the new version, confirms it's signed by Leech Software, closes and reopens.
 - **Nothing to install:** FFmpeg is inside the app. No Homebrew and no command line.
+
+## Screenshots
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/driftcast-library.png" alt="The Driftcast library with a details panel showing the film's poster and plot"><br><sub>Your videos, with posters, plot and cast</sub></td>
+<td width="50%"><img src="docs/images/driftcast-title-card.png" alt="The title card showing the film's poster, year and director"><br><sub>A title card before the film starts</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/images/driftcast-playing.png" alt="A film playing in the Driftcast video window"><br><sub>Playing on this Mac</sub></td>
+<td width="50%"><img src="docs/images/driftcast-casting.png" alt="The small casting window, reading Connected to Living Room TV, Streaming video, with a timeline"><br><sub>While casting, the Mac window shrinks and dims</sub></td>
+</tr>
+</table>
+
+<sub>Shown with free films from the Blender Foundation: Sintel and Tears of Steel (CC BY 3.0), Elephants Dream (CC BY 2.5). See [NOTICE.md](NOTICE.md).</sub>
 
 ## Where it plays
 
