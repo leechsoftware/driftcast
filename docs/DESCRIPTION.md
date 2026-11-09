@@ -1,5 +1,9 @@
 # Driftcast: what it does, exactly
 
+[![Download the latest version of Driftcast](https://img.shields.io/github/v/release/leechsoftware/driftcast?style=for-the-badge&label=Download&color=F0468F&logo=apple&logoColor=white)](https://github.com/leechsoftware/driftcast/releases/latest)
+
+Free disk image for macOS 13 or later, Apple silicon and Intel. [All releases](https://github.com/leechsoftware/driftcast/releases)
+
 Driftcast is a free, open-source macOS app from Leech Software that plays the video files on
 your Mac on a Chromecast, an Apple TV or an AirPlay 2 TV, and on the Mac itself. It converts
 only what the device can't play, while the video is playing, so nearly any file plays on nearly

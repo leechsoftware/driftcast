@@ -5,6 +5,8 @@ description: Driftcast plays MKV, AVI and nearly any video from your Mac on Chro
 
 <p align="center"><img src="images/icon-360.png" width="180" height="180" alt="The Driftcast app icon"></p>
 
+<p align="center"><a href="https://github.com/leechsoftware/driftcast/releases/latest"><img alt="Download the latest version of Driftcast" src="https://img.shields.io/github/v/release/leechsoftware/driftcast?style=for-the-badge&label=Download&color=F0468F&logo=apple&logoColor=white" height="42"></a><br><small>Free disk image for macOS 13 or later, Apple silicon and Intel · <a href="https://github.com/leechsoftware/driftcast/releases">All releases</a></small></p>
+
 **Nearly any video on your Mac, on the biggest screen in the house.** Chromecast, Apple TV and AirPlay 2 TVs, with no waiting and no conversion it doesn't need. Driftcast streams MKV, AVI, WMV, TS and nearly any other video file, converting only what the device can't play.
 
 Driftcast is a free, open-source Mac app from Leech Software. It is the free alternative to Airflow, Beamer, Elmedia Player, JustStream, Infuse and Plex for playing the video files on your Mac on the TV.

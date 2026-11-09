@@ -5,6 +5,11 @@
 <h1 align="center">Driftcast</h1>
 
 <p align="center">
+  <a href="https://github.com/leechsoftware/driftcast/releases/latest"><img alt="Download the latest version of Driftcast" src="https://img.shields.io/github/v/release/leechsoftware/driftcast?style=for-the-badge&label=Download&color=F0468F&logo=apple&logoColor=white" height="42"></a><br>
+  <sub>Free disk image for macOS 13 or later, Apple silicon and Intel &nbsp;·&nbsp; <a href="https://github.com/leechsoftware/driftcast/releases">All releases</a></sub>
+</p>
+
+<p align="center">
   <strong>Nearly any video on your Mac, on the biggest screen in the house.</strong><br>
   Chromecast. Apple TV. AirPlay 2 TVs. No waiting, and no conversion it doesn't need.
 </p>
@@ -15,7 +20,6 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/leechsoftware/driftcast/releases/latest"><img alt="Download Driftcast" src="https://img.shields.io/badge/Download-Driftcast-F0468F?style=for-the-badge&logo=apple&logoColor=white"></a>
   <img alt="macOS 13 Ventura or later" src="https://img.shields.io/badge/macOS-13%20Ventura%20or%20later-2b2b33?style=for-the-badge&logo=apple&logoColor=white">
   <img alt="Universal: Apple silicon and Intel" src="https://img.shields.io/badge/Universal-Apple%20silicon%20%2B%20Intel-2b2b33?style=for-the-badge">
   <a href="LICENSE"><img alt="GPL v3" src="https://img.shields.io/badge/License-GPL%20v3-2b2b33?style=for-the-badge"></a>
