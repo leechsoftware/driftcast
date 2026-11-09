@@ -55,9 +55,23 @@ final class AVPlayerTarget: PlaybackTarget {
         NetworkUtil.primaryIPv4() ?? "127.0.0.1"
     }
 
+    /// How this Mac draws WebVTT subtitles: the system's style at `scale` times its size. An
+    /// AirPlay TV draws them itself with its own settings, so there this has no effect.
+    static func textStyleRules(scale: Double) -> [AVTextStyleRule] {
+        guard let rule = AVTextStyleRule(textMarkupAttributes: [
+            kCMTextMarkupAttribute_RelativeFontSize as String: SubtitleSize.normalized(scale) * 100,
+        ]) else { return [] }
+        return [rule]
+    }
+
+    func setSubtitleScale(_ scale: Double) {
+        player.currentItem?.textStyleRules = Self.textStyleRules(scale: scale)
+    }
+
     func load(_ r: LoadRequest) async throws {
         clearItem()
         let item = AVPlayerItem(url: r.url)
+        item.textStyleRules = Self.textStyleRules(scale: SubtitleSize.current)
         Self.log.info("load \(r.url.absoluteString, privacy: .public) at \(r.startTime), external \(self.player.isExternalPlaybackActive)")
         statusObservation = item.observe(\.status, options: [.new]) { [weak self] item, _ in
             Self.log.info("item status \(item.status.rawValue) \(String(describing: item.error), privacy: .public)")

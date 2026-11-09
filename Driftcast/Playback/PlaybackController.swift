@@ -72,6 +72,9 @@ final class PlaybackController: ObservableObject {
     @Published private(set) var queueIndex = 0
 
     private var castTarget: CastTarget?
+    /// The subtitle size the output was last told about, so a change in Settings or the
+    /// Subtitles menu is passed on once, as it happens.
+    private var appliedSubtitleScale = SubtitleSize.current
     private var session: StreamSession?
     private var loadToken = 0
     private var lastProgressSave = Date.distantPast
@@ -116,6 +119,11 @@ final class PlaybackController: ObservableObject {
     /// Conversion settings changed in Settings: re-plan the current stream (debounced, since
     /// SwiftUI writes each keystroke of a text field).
     private func settingsChanged() {
+        let scale = SubtitleSize.current
+        if abs(scale - appliedSubtitleScale) > 0.001 {
+            appliedSubtitleScale = scale
+            target.setSubtitleScale(scale)
+        }
         guard let planned = plannedSettings, EncoderSettings.current() != planned else { return }
         settingsWork?.cancel()
         settingsWork = Task { [weak self] in

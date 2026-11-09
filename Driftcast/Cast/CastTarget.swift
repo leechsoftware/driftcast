@@ -323,12 +323,7 @@ final class CastTarget: PlaybackTarget {
                 "trackContentId": sub.absoluteString, "trackContentType": "text/vtt",
                 "name": r.subtitleName ?? "Subtitles", "language": r.subtitleLanguage ?? "en",
             ]]
-            let scale = Prefs.double(Prefs.subtitleScale)
-            media["textTrackStyle"] = [
-                "foregroundColor": "#FFFFFFFF", "backgroundColor": "#00000000",
-                "edgeType": "OUTLINE", "edgeColor": "#000000FF",
-                "fontScale": scale > 0 ? scale : 1.0, "fontFamily": "Droid Sans",
-            ]
+            media["textTrackStyle"] = Self.textTrackStyle(scale: SubtitleSize.current)
             message["media"] = media
             message["activeTrackIds"] = [1]
         }
@@ -374,6 +369,20 @@ final class CastTarget: PlaybackTarget {
         p["type"] = type
         p["mediaSessionId"] = id
         command(NS.media, t, p)
+    }
+
+    /// White text with a black outline at `scale` times the receiver's normal size.
+    static func textTrackStyle(scale: Double) -> [String: Any] {
+        [
+            "foregroundColor": "#FFFFFFFF", "backgroundColor": "#00000000",
+            "edgeType": "OUTLINE", "edgeColor": "#000000FF",
+            "fontScale": SubtitleSize.normalized(scale), "fontFamily": "Droid Sans",
+        ]
+    }
+
+    /// The receiver restyles the text track it is showing without reloading the video.
+    func setSubtitleScale(_ scale: Double) {
+        mediaCommand("EDIT_TRACKS_INFO", ["textTrackStyle": Self.textTrackStyle(scale: scale)])
     }
 
     func play() { mediaCommand("PLAY") }

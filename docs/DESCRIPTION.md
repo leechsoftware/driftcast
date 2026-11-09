@@ -167,8 +167,12 @@ feature has not been tried on real hardware, it says so.
   Spanish" (or "No closed captions in this video") with the same menu as the playback bar.
 - **"I don't care about subtitles"** (Settings > Subtitles) hides that footer and the Closed
   Captions section of the details panel; the menus still work.
-- Chromecast subtitle size is adjustable (60% to 200%); subtitles are white with a black
-  outline.
+- **Subtitle size** is one setting from 60% to 200%, remembered between launches: a slider in
+  the menu bar's Subtitles menu (with Larger ⌥⌘= and Smaller ⌥⌘− above it), a Subtitle Size
+  submenu with the same steps and presets in the playback bar's and the video window's
+  subtitle menus, and the slider in Settings. A change applies at once: this Mac redraws its
+  subtitles at that size, and a Chromecast is told the new text style without reloading the
+  video (white text with a black outline). An AirPlay TV draws subtitles with its own settings.
 - **OpenSubtitles.com search** built in: searches by the file's hash (exact-release matches are
   marked) and by title, shows language, download count and hearing-impaired marks, downloads
   as SRT and turns the subtitle on. Needs a free API key from OpenSubtitles unless the app ships
@@ -223,8 +227,9 @@ feature has not been tried on real hardware, it says so.
   earlier, Reset).
 - **Output:** This Mac, Apple TV or AirPlay TV…, every Chromecast found (speakers in a
   submenu), Disconnect from Chromecast, Search for Devices Again.
-- **Subtitles:** Off, every subtitle track and file, Add Subtitle File…, Search
-  OpenSubtitles…, Get a Free OpenSubtitles API Key…, Enter API Key…, Subtitle Settings…
+- **Subtitles:** Off, every subtitle track and file, Add Subtitle File…, Find Subtitles
+  Online…, Larger Subtitles (⌥⌘=), Smaller Subtitles (⌥⌘−), the Subtitle Size slider, Get a
+  Free OpenSubtitles API Key…, Enter API Key…, Subtitle Settings…
 - **Help:** Driftcast Help, Report a Problem…, Driftcast on GitHub,
   Driftcast Website.
 - **Right-click on a video:** Play / Resume from 12:34 / Pause / Stop, Play from Beginning, Add
@@ -249,7 +254,7 @@ feature has not been tried on real hardware, it says so.
   Dolby surround to Chromecast.
 - **Subtitles:** always turn on closed captions; turn them on when the audio is in another
   language; caption language; search OpenSubtitles when the video has none in that language;
-  convert picture subtitles to text; Chromecast text size; OpenSubtitles API key; "I don't care
+  convert picture subtitles to text; subtitle size; OpenSubtitles API key; "I don't care
   about subtitles".
 - Changing a conversion setting while a video plays re-plans and restarts the stream at the
   same position a second later.

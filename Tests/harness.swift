@@ -287,6 +287,21 @@ do {
     lib.deletePlaylist(from); lib.deletePlaylist(to)
 }
 
+// Subtitle size: one preference behind the menu slider, Larger/Smaller and Settings, snapped to
+// tenths and kept between 60% and 200%.
+do {
+    let before = Prefs.double(Prefs.subtitleScale)
+    SubtitleSize.current = 1.0
+    SubtitleSize.increase(); SubtitleSize.increase()
+    check(abs(SubtitleSize.current - 1.2) < 0.0001 && SubtitleSize.label(SubtitleSize.current) == "120%", "two steps larger from normal is 120% (\(SubtitleSize.current))")
+    SubtitleSize.current = 5
+    check(SubtitleSize.current == 2.0 && !SubtitleSize.canIncrease, "the size stops at 200%")
+    SubtitleSize.current = 0.1
+    check(SubtitleSize.current == 0.6 && !SubtitleSize.canDecrease, "the size stops at 60%")
+    check(SubtitleSize.normalized(1.1000000000000001) == 1.1 && SubtitleSize.normalized(0) == 1.0 && SubtitleSize.normalized(.nan) == 1.0, "odd values are snapped or fall back to normal")
+    Prefs.defaults.set(before, forKey: Prefs.subtitleScale)
+}
+
 // Delete File: the file goes (to the Trash in the app; removed outright here), it leaves every
 // playlist, its progress is forgotten, and a file that can't be trashed stays listed.
 do {

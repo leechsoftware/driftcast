@@ -55,6 +55,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @MainActor static var library: Library?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        MainActor.assumeIsolated { SubtitleSizeMenuItem.shared.install() }
         // The red close button on the main window quits Driftcast, as the user expects of a
         // single-window player. Other windows (Video, Settings) just close.
         NotificationCenter.default.addObserver(forName: NSWindow.willCloseNotification, object: nil, queue: .main) { note in
@@ -248,6 +249,8 @@ struct SubtitleCommands: Commands {
     @ObservedObject var player: PlaybackController
     @AppStorage(Prefs.openSubtitlesKey) private var apiKey = ""
     @AppStorage(Prefs.settingsTab) private var settingsTab = "general"
+    // Read so that Larger and Smaller enable and disable as the size changes.
+    @AppStorage(Prefs.subtitleScale) private var subtitleScale = 1.0
 
     var body: some Commands {
         CommandMenu("Subtitles") {
@@ -269,6 +272,14 @@ struct SubtitleCommands: Commands {
                 .disabled(player.nowPlaying == nil)
             Button("Find Subtitles Online…") { player.showSubtitleSearch = true }
                 .disabled(player.nowPlaying == nil)
+            Divider()
+            // The slider itself is an AppKit item that SubtitleSizeMenuItem adds under these.
+            Button("Larger Subtitles") { SubtitleSize.increase() }
+                .keyboardShortcut("=", modifiers: [.command, .option])
+                .disabled(!SubtitleSize.canIncrease)
+            Button("Smaller Subtitles") { SubtitleSize.decrease() }
+                .keyboardShortcut("-", modifiers: [.command, .option])
+                .disabled(!SubtitleSize.canDecrease)
             Divider()
             // Reading apiKey keeps this in step with Settings; the built-in key counts too.
             if apiKey.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, OpenSubtitlesClient.builtInKey.isEmpty {

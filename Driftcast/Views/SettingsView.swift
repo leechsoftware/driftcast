@@ -222,14 +222,14 @@ private struct SubtitleSettings: View {
             }
             Section {
                 Toggle("Convert picture subtitles (PGS, VobSub) to text", isOn: $ocr)
-                LabeledContent("Chromecast text size") {
+                LabeledContent("Subtitle size") {
                     HStack {
-                        Slider(value: $scale, in: 0.6...2.0, step: 0.1)
-                        Text("\(Int(scale * 100))%").monospacedDigit().frame(width: 44, alignment: .trailing)
+                        Slider(value: $scale, in: SubtitleSize.range, step: SubtitleSize.step)
+                        Text(SubtitleSize.label(scale)).monospacedDigit().frame(width: 44, alignment: .trailing)
                     }
                 }
             } footer: {
-                Text("Picture subtitles are read with text recognition the first time they're used, which takes a minute for a film; with this off they are drawn into the video instead.")
+                Text("Picture subtitles are read with text recognition the first time they're used, which takes a minute for a film; with this off they are drawn into the video instead. The size applies on this Mac and on a Chromecast, and is also in the Subtitles menu; an AirPlay TV uses its own subtitle settings.")
             }
             Section {
                 Toggle("I don't care about subtitles", isOn: $hideNotices)

@@ -42,5 +42,7 @@ protocol PlaybackTarget: AnyObject {
     func seek(to seconds: Double)
     func stop()
     func setVolume(_ level: Double)
+    /// Subtitles are drawn at `scale` times the normal size from now on (see `SubtitleSize`).
+    func setSubtitleScale(_ scale: Double)
     func disconnect()
 }

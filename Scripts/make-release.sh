@@ -20,7 +20,9 @@ VERSION=$(grep -m1 -E 'MARKETING_VERSION = ' "$PROJECT/project.pbxproj" | sed -E
 [ -n "$VERSION" ] || { echo "no MARKETING_VERSION in the project" >&2; exit 1; }
 OUT="Releases/$VERSION"
 WORK=$(mktemp -d "${TMPDIR:-/tmp}/driftcast-release.XXXXXX")
-trap 'rm -rf "$WORK"' EXIT
+# The work folder is removed only after success: a notarized app is too expensive to lose to a
+# failed check, so on failure its path is printed instead.
+trap '[ "${DONE:-}" = yes ] && rm -rf "$WORK" || echo "kept for inspection: $WORK" >&2' EXIT
 ARCHIVE="$WORK/Driftcast.xcarchive"
 EXPORT="$WORK/export"
 
@@ -64,7 +66,7 @@ echo "== checking the notarized app"
 xcrun stapler validate "$APP" | tail -1
 codesign --verify --deep --strict "$APP" && echo "signature: valid"
 spctl --assess --type execute "$APP" && echo "Gatekeeper: accepted"
-BUILT=$(defaults read "$PWD/$APP/Contents/Info.plist" CFBundleShortVersionString)
+BUILT=$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Contents/Info.plist")
 [ "$BUILT" = "$VERSION" ] || { echo "the app says $BUILT but the project says $VERSION" >&2; exit 1; }
 lipo -archs "$APP/Contents/MacOS/Driftcast" | sed 's/^/architectures: /'
 lipo -archs "$APP/Contents/Resources/ffmpeg/ffmpeg" | sed 's/^/ffmpeg architectures: /'
@@ -84,5 +86,6 @@ hdiutil create -volname "Driftcast $VERSION" -srcfolder "$STAGE" -fs HFS+ -forma
 
 (cd "$OUT" && shasum -a 256 "Driftcast-$VERSION.dmg" "Driftcast-$VERSION.zip" > SHA256SUMS.txt && cat SHA256SUMS.txt)
 du -h "$OUT"/* | sed 's/^/  /'
+DONE=yes
 echo "== done: $OUT"
 echo "Next: tag v$VERSION and attach both files to the GitHub release (SHIPPING.md, section 2)."
