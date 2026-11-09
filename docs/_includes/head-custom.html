@@ -1,0 +1,22 @@
+<link rel="icon" type="image/png" href="{{ '/images/icon-360.png' | relative_url }}">
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Driftcast",
+  "description": "Free, open-source Mac app that plays MKV, AVI and nearly any other video on Chromecast, Apple TV and AirPlay 2 TVs, converting only what the device can't play.",
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "macOS 13 or later",
+  "processorRequirements": "Apple silicon or Intel",
+  "softwareVersion": "1.0",
+  "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+  "url": "https://leechsoftware.github.io/driftcast/",
+  "downloadUrl": "https://github.com/leechsoftware/driftcast/releases/latest",
+  "image": "https://leechsoftware.github.io/driftcast/images/icon-360.png",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Organization", "name": "Leech Software, Inc.", "url": "https://leechsoftware.com" }
+}
+</script>
+{% endif %}

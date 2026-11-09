@@ -283,6 +283,16 @@ flowchart LR
 | `Driftcast/Model/` | Playlists, watch progress, settings, updates |
 | `Driftcast/Views/`, `Driftcast/App/` | SwiftUI windows, menus, Settings, About |
 
+## Guides
+
+- [How to cast MKV files to Chromecast from a Mac](https://leechsoftware.github.io/driftcast/how-to-cast-mkv-to-chromecast-from-mac/)
+- [How to play MKV files on Apple TV from a Mac](https://leechsoftware.github.io/driftcast/play-mkv-on-apple-tv-from-mac/)
+- [How to send any video from a Mac to a Samsung or LG TV](https://leechsoftware.github.io/driftcast/airplay-video-from-mac-to-samsung-lg-tv/)
+- [How to get subtitles on Chromecast from a Mac](https://leechsoftware.github.io/driftcast/chromecast-subtitles-from-mac/)
+- [How to play DTS audio on Chromecast from a Mac](https://leechsoftware.github.io/driftcast/dts-audio-chromecast-mac/)
+- [How to cast 4K HDR video from a Mac](https://leechsoftware.github.io/driftcast/cast-4k-hdr-video-from-mac/)
+- [A free Airflow alternative for Mac](https://leechsoftware.github.io/driftcast/free-airflow-alternative-for-mac/)
+
 ## Download
 
 **[Get the latest release](https://github.com/leechsoftware/driftcast/releases/latest)**, unzip it and drag Driftcast to your Applications folder. Release builds are signed with a Developer ID and notarized by Apple.

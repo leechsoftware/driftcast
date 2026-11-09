@@ -1,0 +1,1 @@
+> **An honest note:** Driftcast's Chromecast support follows Google's documentation, and its streams have been checked in Apple's player, but it hasn't been tried on a real Chromecast yet. If you own one, [please say how it went](https://github.com/leechsoftware/driftcast/issues), working or not.

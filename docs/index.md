@@ -1,9 +1,9 @@
 ---
-title: Driftcast for Mac
-description: Play any video from your Mac on Chromecast, Apple TV and AirPlay 2 TVs. Free and open source; the alternative to Airflow, Beamer, Elmedia Player, JustStream, Infuse and Plex.
+title: Free Mac App to Cast MKV and Any Video to Chromecast and Apple TV
+description: Driftcast plays MKV, AVI and nearly any video from your Mac on Chromecast, Apple TV and AirPlay 2 TVs. Free and open source; an alternative to Airflow, Beamer, Elmedia Player, JustStream, Infuse and Plex.
 ---
 
-<p align="center"><img src="images/icon.png" width="180" height="180" alt="The Driftcast app icon"></p>
+<p align="center"><img src="images/icon-360.png" width="180" height="180" alt="The Driftcast app icon"></p>
 
 **Nearly any video on your Mac, on the biggest screen in the house.** Chromecast, Apple TV and AirPlay 2 TVs, with no waiting and no conversion it doesn't need. Driftcast streams MKV, AVI, WMV, TS and nearly any other video file, converting only what the device can't play.
 
@@ -33,6 +33,16 @@ macOS 13 Ventura or later, Apple silicon and Intel. Free, under the GNU GPL v3. 
 3. Open it, drop a video on the window, and pick your TV.
 
 Release builds are signed with a Developer ID and notarized by Apple. The source code, build scripts and automated checks are all on [GitHub](https://github.com/leechsoftware/driftcast); changes are welcome.
+
+## Guides
+
+- [How to cast MKV files to Chromecast from a Mac]({{ '/how-to-cast-mkv-to-chromecast-from-mac/' | relative_url }})
+- [How to play MKV files on Apple TV from a Mac]({{ '/play-mkv-on-apple-tv-from-mac/' | relative_url }})
+- [How to send any video from a Mac to a Samsung or LG TV]({{ '/airplay-video-from-mac-to-samsung-lg-tv/' | relative_url }})
+- [How to get subtitles on Chromecast from a Mac]({{ '/chromecast-subtitles-from-mac/' | relative_url }})
+- [How to play DTS audio on Chromecast from a Mac]({{ '/dts-audio-chromecast-mac/' | relative_url }})
+- [How to cast 4K HDR video from a Mac]({{ '/cast-4k-hdr-video-from-mac/' | relative_url }})
+- [A free Airflow alternative for Mac]({{ '/free-airflow-alternative-for-mac/' | relative_url }})
 
 ## Supported macOS versions and Macs
 
