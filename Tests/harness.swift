@@ -287,6 +287,27 @@ do {
     lib.deletePlaylist(from); lib.deletePlaylist(to)
 }
 
+// Delete File: the file goes (to the Trash in the app; removed outright here), it leaves every
+// playlist, its progress is forgotten, and a file that can't be trashed stays listed.
+do {
+    let tmp = FileManager.default.temporaryDirectory.appendingPathComponent("harness-delete-\(UUID().uuidString).mp4")
+    let copied = (try? FileManager.default.copyItem(at: mp4, to: tmp)) != nil
+    check(copied, "a throwaway copy of the test video exists for the delete check")
+    let a = lib.newPlaylist(named: "harness-del-a"), b = lib.newPlaylist(named: "harness-del-b")
+    lib.add([tmp, mkv], to: a); lib.add([tmp], to: b)
+    lib.markWatched(tmp)
+    struct Refused: Error {}
+    let stuck = lib.deleteFiles([tmp], trash: { _ in throw Refused() })
+    let stillListed = lib.playlists.first { $0.id == a }!.items.contains { $0.url.path == tmp.path }
+    check(stuck.count == 1 && stillListed && lib.watched.contains(tmp.path), "a file that can't be trashed stays listed")
+    let failed = lib.deleteFiles([tmp], trash: { try FileManager.default.removeItem(at: $0) })
+    let inA = lib.playlists.first { $0.id == a }!.items.map(\.url.path)
+    let inB = lib.playlists.first { $0.id == b }!.items
+    check(failed.isEmpty && !FileManager.default.fileExists(atPath: tmp.path) && inA == [mkv.path] && inB.isEmpty
+          && !lib.watched.contains(tmp.path), "a deleted file leaves every playlist and its watched mark goes (a: \(inA.count), b: \(inB.count))")
+    lib.deletePlaylist(a); lib.deletePlaylist(b)
+}
+
 // Opening a video that is already listed must not list it twice
 do {
     let pl = lib.newPlaylist(named: "harness-dupes")

@@ -219,6 +219,34 @@ final class Library: ObservableObject {
         save()
     }
 
+    /// Moves video files to the Trash, the one thing in Driftcast that touches a file on disk,
+    /// and only ever from the right-click menu after the person has confirmed. A trashed file
+    /// leaves every playlist it was in, along with its position and watched mark. Files that
+    /// couldn't be trashed stay listed and are returned with the reason.
+    @discardableResult
+    func deleteFiles(_ urls: [URL], trash: (URL) throws -> Void = { try FileManager.default.trashItem(at: $0, resultingItemURL: nil) }) -> [(URL, Error)] {
+        var failed: [(URL, Error)] = []
+        var gone: Set<String> = []
+        for url in urls {
+            do {
+                try trash(url)
+                gone.insert(url.path)
+            } catch {
+                failed.append((url, error))
+            }
+        }
+        guard !gone.isEmpty else { return failed }
+        for i in playlists.indices {
+            playlists[i].items.removeAll { gone.contains($0.url.path) }
+        }
+        for path in gone {
+            progress.removeValue(forKey: path)
+            watched.remove(path)
+        }
+        save()
+        return failed
+    }
+
     /// Moves videos to the end of another playlist.
     func moveItems(_ itemIDs: Set<MediaItem.ID>, from source: Playlist.ID, to destination: Playlist.ID) {
         guard source != destination,

@@ -48,24 +48,46 @@ with the Developer ID), then press Update Now.
 The repository is `UpdateConfig.repository` (`leechsoftware/driftcast`). No account or API key is
 involved; GitHub's public API allows 60 requests an hour per network address.
 
+**The version number is changed by hand only.** `MARKETING_VERSION` in the project is the
+version (1.0 at the time of writing). It stays as it is until the owner decides a new version
+is due; nothing bumps it automatically. The app offers an update only when a release's tag is
+a higher number than the version it is running, so a rebuilt 1.0 is never offered to a 1.0.
+
 Per release:
 
-1. Raise `MARKETING_VERSION` in the project (the tag is compared with it number by number).
-2. Archive, export and notarise (section 3), and zip the app: `ditto -c -k --keepParent Driftcast.app Driftcast.zip`.
-3. Create a GitHub release tagged with the version (`v1.1` or `1.1`) and attach `Driftcast.zip`.
-   Drafts and pre-releases are not offered.
+1. Raise `MARKETING_VERSION` in the project if this is a new version (the tag is compared with
+   it number by number).
+2. Run `Scripts/make-release.sh`. It archives a universal build, has Xcode sign it with the
+   Developer ID and notarise it, checks the result, and writes `Releases/<version>/`:
+   `Driftcast-<version>.dmg` (for people), `Driftcast-<version>.zip` (for Check for Updates,
+   which can only install a zip) and `SHA256SUMS.txt`. `Releases/` is git-ignored.
+3. Create a GitHub release tagged `v<version>` and attach both files:
+   `gh release create v1.0 Releases/1.0/Driftcast-1.0.dmg Releases/1.0/Driftcast-1.0.zip --title "Driftcast 1.0" --notes-file notes.md`
+   (with Driftcast's own token in `GH_TOKEN`; see the note on accounts below). Drafts and
+   pre-releases are not offered to the app.
 4. If the bundled ffmpeg changed, update its versions and library table in `NOTICE.md`. The
    zip contains GPL programs, so their source must stay obtainable: the surest way is to
    attach the matching `ffmpeg-<version>.tar.xz` archives from ffmpeg.org to the release too.
+
+Accounts: Driftcast lives under the `leechsoftware` GitHub account, separate from the owner's
+other projects. The folder's own `.git/config` carries the identity and a credential helper
+that reads a keychain item named `driftcast-github`, so `git push` from this folder goes to the
+right account without changing `gh`'s active login. For `gh` commands use
+`GH_TOKEN=$(security find-generic-password -s driftcast-github -a leechsoftware -w) gh …`.
 
 To see the dialog without a release: `open Driftcast.app --args -ShowAvailableUpdate YES`.
 
 ## 3. Signing and notarisation
 
-Archive with the Developer ID identity, enable hardened runtime (already set), notarise with
-`notarytool`, staple. The bundled ffmpeg is signed by the build phase.
+`Scripts/make-release.sh` does all of it through Xcode: `xcodebuild archive` with both
+architectures, `-exportArchive` with a `developer-id` options plist whose destination is
+`upload` (Xcode signs with the team's cloud-managed Developer ID and sends the app to Apple),
+then `-exportNotarizedApp` until Apple answers, which staples the ticket. No certificate or
+`notarytool` profile needs to be on the Mac. The hardened runtime is on in the project and the
+bundled ffmpeg is signed by the build phase. The disk image itself is not signed; the stapled
+app inside it is what Gatekeeper checks when it is opened.
 
 ## 4. Releases
 
 Driftcast is free: there is no trial, time limit or licence key. Each version is a GitHub
-release with the notarised zip attached (section 2).
+release with the DMG and the zip attached (section 2).

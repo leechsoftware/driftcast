@@ -56,8 +56,9 @@ feature has not been tried on real hardware, it says so.
   and rotated video need the CPU for that one step. If ffmpeg won't start that way, the stream
   steps down by itself: hardware encoding only, then x264.
 - **Keeps the Mac cool and the disk free:** ffmpeg runs about five minutes ahead of the player
-  and is then frozen until the player catches up; what has been played is deleted, so even
-  a long film never needs room for a full copy.
+  and is then frozen until the player catches up; the temporary converted pieces that have
+  been played are cleared from the system temp folder, so even a long film never needs room
+  for a full copy. The video file itself is never touched.
 - **Deinterlacing** (bwdif) for interlaced DVD, broadcast and camcorder video; frame rates above
   60 are capped at 60; audio above 48 kHz is resampled for AAC; phone video keeps its rotation.
 - **Transport streams** (.ts, .m2ts) and recordings whose clock doesn't start at zero play and
@@ -192,7 +193,9 @@ feature has not been tried on real hardware, it says so.
 - Resume where you left off (positions saved every five seconds and on quit); "Play from
   Beginning" clears the position; mark videos watched or unwatched by hand.
 - Autoplay of the next video in the playlist; Next and Previous buttons and shortcuts.
-- Reorder by drag, move videos between playlists, remove with the Delete key or the right-click
+- Reorder by drag, move videos between playlists, take videos out of a playlist with the Delete
+  key or the right-click menu (the file stays where it is), or delete a video's file from the
+  right-click menu after confirming; remove with the Delete key or the right-click
   menu. Missing files are flagged.
 - The library is a JSON file in Application Support, written after every change and again on
   quit.
@@ -226,9 +229,13 @@ feature has not been tried on real hardware, it says so.
   Driftcast Website.
 - **Right-click on a video:** Play / Resume from 12:34 / Pause / Stop, Play from Beginning, Add
   Subtitle File…, Find Subtitles Online…, Details, Show in Finder, Mark as Watched /
-  Unwatched, Move to Playlist (any playlist or a new one), Add Videos…, Remove.
+  Unwatched, Move to Playlist (any playlist or a new one), Add Videos…, Remove from Playlist,
+  Delete File… (asks "Do you really want to delete this file?", then moves the file to the
+  Trash, stops it if it is playing, and takes it out of every playlist; the only command in
+  the app that touches a file on disk).
 - **Right-click on a playlist:** Rename, Add Videos…, Delete Playlist.
-- In the list: Space plays or pauses, Return plays the selected video, Delete removes it.
+- In the list: Space plays or pauses, Return plays the selected video, Delete removes it from
+  the playlist (the file stays).
 
 ### Settings
 - **General:** resume where you left off; play the next video automatically; look up posters

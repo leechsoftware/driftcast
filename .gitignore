@@ -11,7 +11,8 @@ build/
 *.dSYM.zip
 *.ipa
 
-# Release files made next to the project
+# Release files made next to the project (Scripts/make-release.sh writes Releases/<version>/)
+Releases/
 Driftcast.zip
 ExportOptions*.plist
 

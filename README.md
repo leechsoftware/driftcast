@@ -10,11 +10,17 @@
 </p>
 
 <p align="center">
+  The free, open-source alternative to Airflow, Beamer, Elmedia Player, JustStream, Infuse and Plex<br>
+  for playing MKV, AVI and any other video from your Mac on the TV.
+</p>
+
+<p align="center">
   <a href="https://github.com/leechsoftware/driftcast/releases/latest"><img alt="Download Driftcast" src="https://img.shields.io/badge/Download-Driftcast-F0468F?style=for-the-badge&logo=apple&logoColor=white"></a>
   <img alt="macOS 13 Ventura or later" src="https://img.shields.io/badge/macOS-13%20Ventura%20or%20later-2b2b33?style=for-the-badge&logo=apple&logoColor=white">
   <img alt="Universal: Apple silicon and Intel" src="https://img.shields.io/badge/Universal-Apple%20silicon%20%2B%20Intel-2b2b33?style=for-the-badge">
   <a href="LICENSE"><img alt="GPL v3" src="https://img.shields.io/badge/License-GPL%20v3-2b2b33?style=for-the-badge"></a>
   <img alt="Free" src="https://img.shields.io/badge/Price-Free-2b2b33?style=for-the-badge">
+  <a href="https://github.com/leechsoftware/driftcast/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/leechsoftware/driftcast/total?style=for-the-badge&color=2b2b33&label=Downloads"></a>
 </p>
 
 <p align="center">
@@ -32,6 +38,22 @@
   <code>H.264</code> <code>HEVC</code> <code>AV1</code> <code>VP9</code> <code>VP8</code> <code>MPEG-2</code> <code>VC-1</code> <code>ProRes</code> <code>HDR10</code> <code>HLG</code> <code>Dolby Vision</code><br>
   <code>Dolby Atmos</code> <code>E-AC-3</code> <code>AC-3</code> <code>DTS-HD</code> <code>TrueHD</code> <code>FLAC</code> <code>ALAC</code> <code>AAC</code> <code>Opus</code>
 </p>
+
+---
+
+## WHY?
+
+Playing a video from your Mac on the TV shouldn't cost money, need an account, or turn into an evening of fiddling. Yet the apps people end up with all want something: **Airflow** and **Beamer** are paid apps with time-limited trials, **Elmedia Player** keeps casting behind its PRO upgrade, **JustStream** comes with a Setapp subscription, **Infuse** needs Infuse Pro before it will cast from a Mac, and **Plex** wants a media server installed and a library built before you can watch a single file. The free routes aren't much kinder: **VLC**'s Chromecast output is famously hit and miss, mirroring your screen or casting a **Chrome tab** re-encodes your whole desktop at whatever quality the Wi-Fi allows, and converting the file first with **HandBrake** means waiting for the conversion before you can press play.
+
+Driftcast replaces all of that with one free app. Drop in an MKV, AVI, WMV, TS or almost anything else, pick your Chromecast, Apple TV or AirPlay 2 TV, and it works out what the device can play by itself: everything it can handle is passed through untouched, and only the stream it can't play is converted, on the GPU, while you watch. Subtitles arrive as real text, HDR and surround sound stay intact, the TV remote can skip through the real running time, and the poster and plot show up before the film starts. There's no account, no trial, no ads, no telemetry and nothing to install besides the app. It's GPL, so it stays free, and anyone can read every line of it.
+
+| | **Driftcast** | Paid casting apps | Screen or tab mirroring | Plex or Jellyfin |
+|---|---|---|---|---|
+| Price | Free, open source | One-time purchase, subscription or trial | Free | Free core, with a server to run |
+| Getting started | Open the file | Open the file | Start mirroring | Install a server, build a library |
+| Picture on the TV | The original stream wherever possible | Varies | A re-encoded copy of your desktop | The original when the server allows |
+| Subtitles | Real text tracks, any encoding, picture subtitles read as text | Varies | Burned into the mirror | Text tracks |
+| Account | None | Some | None | Yes |
 
 ---
 
@@ -205,7 +227,7 @@ Conversion produces **Dolby Digital Plus 5.1** (640 kbps), lossless **FLAC** up 
 - **Steps down by itself:** if the GPU route won't start, the stream moves to hardware encoding only, then to x264 in software.
 - **Only what needs the CPU uses it:** deinterlacing, drawn-in subtitles and rotated video do that one step in memory.
 - **Paced to the player:** FFmpeg works about five minutes ahead, then is frozen until you catch up, so the Mac stays cool.
-- **Light on your disk:** what you've already watched is deleted as you go, so a long film never needs room for a full copy.
+- **Light on your disk:** the temporary converted pieces are cleared from the system temp folder as you watch, so a long film never needs room for a full copy. Your own video files are never touched.
 
 ## Subtitles done properly
 
@@ -223,6 +245,7 @@ Conversion produces **Dolby Digital Plus 5.1** (640 kbps), lossless **FLAC** up 
 - Any number of named playlists, with drag and drop for files and folders
 - Dropping several episodes of a show makes a playlist named after it, in episode order
 - Resume where you left off, watched marks, a progress bar on every video and autoplay of the next one
+- Right-click a video to remove it from the playlist, or to delete its file, which asks first and moves it to the Trash
 - Hover and drag preview frames on the timeline, which work for MKV and AVI too
 - Media keys and the Now Playing panel
 - Keeps the Mac awake while serving a device

@@ -4,6 +4,9 @@ struct PlaylistView: View {
     @EnvironmentObject private var library: Library
     @EnvironmentObject private var player: PlaybackController
     @State private var selection = Set<MediaItem.ID>()
+    /// Videos waiting for the person to confirm that their files should go to the Trash.
+    @State private var filesToDelete: [MediaItem] = []
+    @State private var deleteProblem: String?
     @AppStorage(Prefs.showDetails) private var showDetails = false
 
     var body: some View {
@@ -44,6 +47,23 @@ struct PlaylistView: View {
                     }
                 }
             }
+            .alert(filesToDelete.count == 1 ? "Do you really want to delete this file?" : "Do you really want to delete these \(filesToDelete.count) files?",
+                   isPresented: Binding(get: { !filesToDelete.isEmpty }, set: { if !$0 { filesToDelete = [] } }),
+                   presenting: filesToDelete) { items in
+                Button("Move to Trash", role: .destructive) { deleteFiles(items) }
+                Button("Cancel", role: .cancel) {}
+            } message: { items in
+                if items.count == 1 {
+                    Text("“\(items[0].url.lastPathComponent)” will be moved to the Trash and taken out of your playlists. You can get it back from the Trash.")
+                } else {
+                    Text("The files will be moved to the Trash and taken out of your playlists. You can get them back from the Trash.")
+                }
+            }
+            .alert("Some files couldn't be deleted", isPresented: Binding(get: { deleteProblem != nil }, set: { if !$0 { deleteProblem = nil } })) {
+                Button("OK") {}
+            } message: {
+                Text(deleteProblem ?? "")
+            }
             .navigationTitle(playlist.name)
             .navigationSubtitle(playlist.items.count == 1 ? "1 video" : "\(playlist.items.count) videos")
             .toolbar {
@@ -65,6 +85,17 @@ struct PlaylistView: View {
             }
         } else {
             EmptyStateView(title: "No Playlist Selected", systemImage: "list.bullet.rectangle")
+        }
+    }
+
+    /// After the confirmation: a playing video is stopped first, so its file isn't open while
+    /// it moves, then the files go to the Trash.
+    private func deleteFiles(_ items: [MediaItem]) {
+        if let current = player.nowPlaying, items.contains(where: { $0.url == current.url }) { player.stop() }
+        let failed = library.deleteFiles(items.map(\.url))
+        selection.subtract(items.map(\.id))
+        if !failed.isEmpty {
+            deleteProblem = failed.map { "\($0.0.lastPathComponent): \($0.1.localizedDescription)" }.joined(separator: "\n")
         }
     }
 
@@ -113,7 +144,8 @@ struct PlaylistView: View {
             Divider()
             Button("Add Videos…") { library.presentOpenPanel(into: playlist.id) }
             Divider()
-            Button("Remove", role: .destructive) { library.remove(ids, from: playlist.id) }
+            Button("Remove from Playlist") { library.remove(ids, from: playlist.id) }
+            Button(items.count == 1 ? "Delete File…" : "Delete \(items.count) Files…", role: .destructive) { filesToDelete = items }
         } else {
             Button("Add Videos…") { library.presentOpenPanel(into: playlist.id) }
             Button("New Playlist") { library.newPlaylist() }
