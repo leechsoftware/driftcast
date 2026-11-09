@@ -1,17 +1,15 @@
 ---
-title: Driftcast — play any video from your Mac on Chromecast, Apple TV and AirPlay 2 TVs
-description: Free, open-source Mac app that streams MKV, AVI, WMV, TS and nearly any other video to Chromecast, Apple TV and AirPlay 2 TVs, converting only what the device can't play. A free alternative to Airflow, Beamer, Elmedia Player, JustStream, Infuse and Plex.
+title: Driftcast for Mac
+description: Play any video from your Mac on Chromecast, Apple TV and AirPlay 2 TVs. Free and open source; the alternative to Airflow, Beamer, Elmedia Player, JustStream, Infuse and Plex.
 ---
 
 <p align="center"><img src="images/icon.png" width="180" height="180" alt="The Driftcast app icon"></p>
 
-# Driftcast
-
-**Nearly any video on your Mac, on the biggest screen in the house.** Chromecast, Apple TV and AirPlay 2 TVs, with no waiting and no conversion it doesn't need.
+**Nearly any video on your Mac, on the biggest screen in the house.** Chromecast, Apple TV and AirPlay 2 TVs, with no waiting and no conversion it doesn't need. Driftcast streams MKV, AVI, WMV, TS and nearly any other video file, converting only what the device can't play.
 
 Driftcast is a free, open-source Mac app from Leech Software. It is the free alternative to Airflow, Beamer, Elmedia Player, JustStream, Infuse and Plex for playing the video files on your Mac on the TV.
 
-<p><a href="https://github.com/leechsoftware/driftcast/releases/latest"><strong>Download the latest version</strong></a> · <a href="https://github.com/leechsoftware/driftcast">Source code on GitHub</a> · <a href="DESCRIPTION.html">Everything it does, in detail</a> · <a href="https://github.com/leechsoftware/driftcast/blob/main/PRIVACY.md">Privacy</a></p>
+<p><a href="https://github.com/leechsoftware/driftcast/releases/latest"><strong>Download the latest version</strong></a> · <a href="https://github.com/leechsoftware/driftcast">Source code on GitHub</a> · <a href="https://github.com/leechsoftware/driftcast/blob/main/docs/DESCRIPTION.md">Everything it does, in detail</a> · <a href="https://github.com/leechsoftware/driftcast/blob/main/PRIVACY.md">Privacy</a></p>
 
 macOS 13 Ventura or later, Apple silicon and Intel. Free, under the GNU GPL v3. No account, no trial, no ads, no tracking.
 
