@@ -1,0 +1,7 @@
+1
+00:00:01,000 --> 00:00:04,000
+Hello from an external SRT
+
+2
+00:00:12,500 --> 00:00:15,000
+Second cue, past the first segment

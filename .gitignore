@@ -1,0 +1,22 @@
+# Bundled media engine (built by Scripts/bundle-ffmpeg.sh; 200+ MB)
+Vendor/ffmpeg/
+Vendor/ffmpeg-arm64/
+
+# Xcode
+xcuserdata/
+DerivedData/
+build/
+*.xcarchive
+*.xcresult
+*.dSYM.zip
+*.ipa
+
+# Release files made next to the project
+Driftcast.zip
+ExportOptions*.plist
+
+# macOS and editors
+.DS_Store
+.claude/
+.vscode/
+*.swp

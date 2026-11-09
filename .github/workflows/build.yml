@@ -1,0 +1,29 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch ffmpeg
+        # The static, universal builds the app ships; the harness makes its test videos with them.
+        run: bash Scripts/bundle-ffmpeg.sh
+
+      - name: Build
+        run: |
+          xcodebuild -project Driftcast.xcodeproj -scheme Driftcast -configuration Debug \
+            -derivedDataPath build/DerivedData CODE_SIGNING_ALLOWED=NO CODE_SIGN_IDENTITY= build
+
+      - name: Logic harness
+        # Probing, planning, the HTTP server, HLS sessions played by AVPlayer, OCR and the
+        # library model. Hardware video encoding is not available on a hosted runner, so a
+        # failure here is reported but does not fail the build.
+        continue-on-error: true
+        run: bash Tests/run-harness.sh
