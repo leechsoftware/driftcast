@@ -6,6 +6,122 @@
   gtag('js', new Date());
   gtag('config', 'G-P8CWQ19TGQ');
 </script>
+<!-- App download clicks. transport_type beacon sends the hit before the next page opens. -->
+<script>
+  (function () {
+    var LATEST_RELEASE = /^\/leechsoftware\/driftcast\/releases\/latest$/i;
+
+    function hostName(hostname) {
+      return String(hostname || '').toLowerCase().replace(/^www\./, '').replace(/\.$/, '');
+    }
+
+    function baseName(name) {
+      var parts = String(name).split(/[/\\]/);
+      return parts[parts.length - 1] || '';
+    }
+
+    function decodeName(name) {
+      try {
+        return decodeURIComponent(name);
+      } catch (error) {
+        return name;
+      }
+    }
+
+    function extensionOf(name) {
+      var match = /\.([A-Za-z0-9]+)$/.exec(name);
+      return match ? match[1].toLowerCase() : '';
+    }
+
+    function clip(value) {
+      var text = String(value || '').replace(/\s+/g, ' ').trim();
+      return text.length > 100 ? text.substring(0, 100) : text;
+    }
+
+    function linkText(anchor) {
+      var text = clip(anchor.textContent);
+      if (text) return text;
+      text = clip(anchor.getAttribute('aria-label'));
+      if (text) return text;
+      var image = anchor.querySelector && anchor.querySelector('img');
+      return image ? clip(image.getAttribute('alt')) : '';
+    }
+
+    function isSourceArchive(path) {
+      return /\/(?:archive|zipball)(?:\/|$)/i.test(path);
+    }
+
+    function classify(anchor) {
+      if (!anchor || !anchor.getAttribute('href')) return null;
+      var url;
+      try {
+        url = new URL(anchor.href, window.location.href);
+      } catch (error) {
+        return null;
+      }
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') return null;
+
+      var path = url.pathname.replace(/\/+$/, '');
+      var downloadName = anchor.getAttribute('download');
+      var fileName = downloadName && String(downloadName).trim()
+        ? decodeName(String(downloadName).trim())
+        : decodeName(baseName(path));
+      fileName = baseName(fileName);
+      var extension = extensionOf(fileName);
+      var host = hostName(url.hostname);
+      var isPackage = extension === 'dmg' || extension === 'zip';
+      var isThisRepo = host === 'github.com' && /^\/leechsoftware\/driftcast(?:\/|$)/i.test(path);
+
+      if (isPackage && isThisRepo && isSourceArchive(path)) return null;
+      if (!isPackage && !(host === 'github.com' && LATEST_RELEASE.test(path))) return null;
+
+      var params = {
+        link_url: anchor.href,
+        link_text: linkText(anchor),
+        link_domain: host,
+        transport_type: 'beacon'
+      };
+      if (isPackage) {
+        if (fileName) params.file_name = clip(fileName);
+        params.file_extension = extension;
+      } else {
+        // Buttons open the latest release, where the visitor chooses the .dmg or .zip.
+        params.file_name = 'Driftcast';
+      }
+      return params;
+    }
+
+    var lastKey = '';
+    var lastAt = 0;
+
+    function onClick(event) {
+      try {
+        if (event.defaultPrevented) return;
+        if (event.type === 'auxclick') {
+          if (event.button !== 1) return;
+        } else if (event.button !== 0) {
+          return;
+        }
+        var target = event.target;
+        var anchor = target && target.closest ? target.closest('a[href]') : null;
+        if (!anchor) return;
+        var params = classify(anchor);
+        if (!params || typeof gtag !== 'function') return;
+        var key = params.link_url + '\n' + (params.file_extension || '');
+        var now = Date.now();
+        if (key === lastKey && now - lastAt < 50) return;
+        lastKey = key;
+        lastAt = now;
+        gtag('event', 'file_download', params);
+      } catch (error) {
+        // Analytics must not stop the download.
+      }
+    }
+
+    document.addEventListener('click', onClick, false);
+    document.addEventListener('auxclick', onClick, false);
+  })();
+</script>
 <link rel="icon" type="image/png" href="{{ '/images/icon-360.png' | relative_url }}">
 {% if page.url == "/" %}
 <script type="application/ld+json">
