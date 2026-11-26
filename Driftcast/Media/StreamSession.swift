@@ -711,7 +711,7 @@ final class StreamSession: @unchecked Sendable {
     /// Master playlist that adds a WebVTT subtitle rendition (used for AVPlayer / AirPlay).
     func masterPlaylist() -> String {
         var s = "#EXTM3U\n#EXT-X-VERSION:7\n#EXT-X-INDEPENDENT-SEGMENTS\n"
-        var inf = "BANDWIDTH=20000000"
+        var inf = "BANDWIDTH=\(estimatedBandwidth)"
         if let v = plan.video, plan.isTranscodingVideo == false, v.isHDR {
             inf += ",VIDEO-RANGE=" + (v.colorTransfer == "arib-std-b67" ? "HLG" : "PQ")
         } else if plan.video != nil {

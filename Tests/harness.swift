@@ -120,8 +120,9 @@ s1.intro = StreamSession.Intro(card: card!, size: CGSize(width: 1920, height: 10
 let st1 = await_ { try await s1.start(at: 0) }
 check((try? st1.get()) != nil, "apple session started \((try? st1.get()) == nil ? "\(st1)" : "")")
 let master = try! await_ { await MediaServer.shared.url(path: s1.masterPath, host: host) }.get()
-let (_, mdata, _) = fetch(master)
-print(String(decoding: mdata, as: UTF8.self).split(separator: "\n").map { "  | " + $0 }.joined(separator: "\n"))
+let (masterStatus, mdata, _) = fetch(master)
+let masterText = String(decoding: mdata, as: UTF8.self)
+print(masterText.split(separator: "\n").map { "  | " + $0 }.joined(separator: "\n"))
 let (_, pl, _) = fetch(master.deletingLastPathComponent().appendingPathComponent("stream.m3u8"))
 let plText = String(decoding: pl, as: UTF8.self)
 print(plText.split(separator: "\n").prefix(12).map { "  | " + $0 }.joined(separator: "\n"))
@@ -174,6 +175,10 @@ print(String(decoding: seg1, as: UTF8.self).split(separator: "\n").map { "  | " 
 let (castStatus, castData, _) = fetch(master.deletingLastPathComponent().appendingPathComponent("cast.m3u8"))
 let castText = String(decoding: castData, as: UTF8.self)
 print(castText.split(separator: "\n").map { "  | " + $0 }.joined(separator: "\n"))
+let castVariant = castText.split(separator: "\n").first { $0.hasPrefix("#EXT-X-STREAM-INF:BANDWIDTH=") }
+let castBandwidth = castVariant?.split(separator: ",", maxSplits: 1).first
+check(masterStatus == 200 && castBandwidth.map { masterText.contains("\($0),") } == true
+      && masterText.contains("SUBTITLES=\"subs\""), "Apple subtitle playlist uses the same stream bandwidth estimate as Cast")
 check(castStatus == 200 && castText.contains("CODECS=\"hvc1.2.4.L") && castText.contains(",ec-3\"") && castText.contains("RESOLUTION=1920x1080") && castText.contains("FRAME-RATE=24.000"),
       "cast playlist carries HEVC Main 10 + E-AC-3 codec strings and the picture size")
 let initCodecs = MP4Boxes.codecs(inInit: s1.initSegment() ?? Data())
