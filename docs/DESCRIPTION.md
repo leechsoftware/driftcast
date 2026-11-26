@@ -676,7 +676,8 @@ version 1.1.1 is marked "(new in 1.1.1)", what changed in 1.1.2 "(new in 1.1.2)"
 - Paths, all under a random per-session id so nothing else on disk is reachable:
   - `/s/<id>/media.<ext>`: the original file with byte ranges (direct play).
   - `/s/<id>/master.m3u8`: HLS master for AVPlayer and AirPlay, with a WebVTT subtitle
-    rendition when subtitles are on.
+    rendition when subtitles are on. Its `BANDWIDTH` is the same estimate as the Chromecast's
+    (since 1.1.5; it was a fixed 20 Mbps, which a TCL Roku TV refused over AirPlay).
   - `/s/<id>/cast.m3u8`: HLS master for Chromecast with `BANDWIDTH`, `CODECS`, `RESOLUTION`,
     `FRAME-RATE` and `VIDEO-RANGE`, the codec strings read from the stream's own init segment
     (for example `hvc1.2.4.L120.90,ec-3` or `avc1.64001F,mp4a.40.2`).

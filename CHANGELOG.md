@@ -3,6 +3,12 @@
 What is new and what was fixed in each version, newest first. Downloads and the notes for
 earlier versions are on the [releases page](https://github.com/leechsoftware/driftcast/releases).
 
+## 1.1.5 (26 November 2026)
+
+### Fixes
+
+- **AirPlay works on more TVs with subtitles on.** Driftcast now tells the TV a realistic bitrate for the video instead of always asking for 20 Mbps, which fixes playback on TCL Roku TVs. Thanks to [AnanthVivekanand](https://github.com/AnanthVivekanand).
+
 ## 1.1.4 (21 November 2026)
 
 ### New

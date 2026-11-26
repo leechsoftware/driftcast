@@ -49,7 +49,7 @@ The repository is `UpdateConfig.repository` (`leechsoftware/driftcast`). No acco
 involved; GitHub's public API allows 60 requests an hour per network address.
 
 **The version number is changed by hand only.** `MARKETING_VERSION` in the project is the
-version (1.1.4 at the time of writing). It stays as it is until the owner decides a new version
+version (1.1.5 at the time of writing). It stays as it is until the owner decides a new version
 is due; nothing bumps it automatically. The app offers an update only when a release's tag is
 a higher number than the version it is running, so a rebuilt 1.1.3 is never offered to a 1.1.3.
 
